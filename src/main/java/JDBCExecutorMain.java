@@ -8,11 +8,12 @@ import java.util.Map;
 
 class JDBCExecutorMain {
     public static void main(String... args) {
-    int a = 4, b = 8;
-        System.out.println(Integer.toBinaryString(a));
-        System.out.println(Integer.toBinaryString(b));
-        System.out.println(Integer.toBinaryString(a | b));
-        System.out.println(Integer.toBinaryString(a & b));
+//        int a = 4, b = 8;
+//        System.out.println(Integer.toBinaryString(a));
+//        System.out.println(Integer.toBinaryString(b));
+//        System.out.println(Integer.toBinaryString(a | b));
+//        System.out.println(Integer.toBinaryString(a & b));
+
 //      Initialize connection
         DatabaseConnectionManager connectionManager = new DatabaseConnectionManager();
         Connection connection = connectionManager.createConnection();

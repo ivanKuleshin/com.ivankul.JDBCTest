@@ -1,13 +1,32 @@
 package util;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseConnectionManager {
-    private static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/ivan?serverTimezone=UTC";
-    private static final String USER_NAME = "root";
-    private static final String PASSWORD = "Jenya_Pidor_123";
+    private static final String PATH_TO_PROPERTIES = "src/main/resources/properties/config.properties";
+    private static final String CONNECTION_URL = "jdbc:mysql://" + getProp("db.url") + getProp("db.port") + "/" + getProp("db.base") + "?serverTimezone=UTC";
+    private static final String USER_NAME = getProp("db.user");
+    private static final String PASSWORD = getProp("db.password");
+
+    private static String getProp(String propName) {
+        String propStr = null;
+        FileInputStream fileInputStream;
+        Properties properties = new Properties();
+        try {
+            fileInputStream = new FileInputStream(PATH_TO_PROPERTIES);
+            properties.load(fileInputStream);
+
+            propStr = properties.get(propName).toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return propStr == null ? "" : propStr;
+    }
 
     public Connection createConnection() {
         Connection connection;
