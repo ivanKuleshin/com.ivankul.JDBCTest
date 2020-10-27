@@ -53,7 +53,7 @@ class JDBCExecutorMain {
 
 //     Print random table line as String
         System.out.println("Random table line:");
-        Map<String, String> firstSelectedRecord = employeeDAO.getFirstSelectedRecord("selectAllRecordsFromEmployee.sql");
+        Map<String, String> firstSelectedRecord = employeeDAO.getFirstSelectedRecord("sql/selectAllRecordsFromEmployee.sql");
         System.out.println(firstSelectedRecord);
 
 //      Close connection

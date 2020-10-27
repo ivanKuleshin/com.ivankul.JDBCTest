@@ -9,12 +9,12 @@ import java.util.*;
 
 public class EmployeeDAO implements DAO<Employee> {
     private final Connection connection;
-    private static final String CREATE_VIEW = getStringFromFile("createView.sql");
-    private static final String GET_LAST_ID = getStringFromFile("getLastId.sql");
-    private static final String INSERT = getStringFromFile("insertIntoEmployee.sql");
-    private static final String GET_ONE = getStringFromFile("getFromEmployeeById.sql");
-    private static final String UPDATE = getStringFromFile("updateEmployee.sql");
-    private static final String DELETE = getStringFromFile("deleteFromEmployee.sql");
+    private static final String CREATE_VIEW = getStringFromFile("sql/createView.sql");
+    private static final String GET_LAST_ID = getStringFromFile("sql/getLastId.sql");
+    private static final String INSERT = getStringFromFile("sql/insertIntoEmployee.sql");
+    private static final String GET_ONE = getStringFromFile("sql/getFromEmployeeById.sql");
+    private static final String UPDATE = getStringFromFile("sql/updateEmployee.sql");
+    private static final String DELETE = getStringFromFile("sql/deleteFromEmployee.sql");
 
     public EmployeeDAO(Connection connection) {
         this.connection = connection;
