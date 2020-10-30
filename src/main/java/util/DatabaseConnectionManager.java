@@ -20,12 +20,18 @@ public class DatabaseConnectionManager {
         try {
             fileInputStream = new FileInputStream(PATH_TO_PROPERTIES);
             properties.load(fileInputStream);
-
             propStr = properties.get(propName).toString();
+            if(propStr.isEmpty()){
+                propStr = getSysProperty(propName);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return propStr == null ? "" : propStr;
+    }
+
+    private static String getSysProperty(String propName){
+        return System.getProperty(propName);
     }
 
     public Connection createConnection() {

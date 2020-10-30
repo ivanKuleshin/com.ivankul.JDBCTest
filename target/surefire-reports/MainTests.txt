@@ -1,10 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: MainTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.507 s <<< FAILURE! - in MainTests
-failedTest(MainTests)  Time elapsed: 0.018 s  <<< FAILURE!
-java.lang.AssertionError: 
-
-Expecting value to be false but was true
-	at MainTests.failedTest(MainTests.java:45)
-
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.484 s - in MainTests
