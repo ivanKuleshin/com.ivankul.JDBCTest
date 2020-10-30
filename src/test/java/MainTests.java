@@ -40,6 +40,11 @@ public class MainTests {
         assertThat(employee.getLastName()).isEqualTo("Sobol");
     }
 
+    @Test
+    public void testAutoBuild(){
+        assertThat(true).isTrue();
+    }
+
     @After
     public void tearDown(){
         connectionManager.closeConnection(connection);
