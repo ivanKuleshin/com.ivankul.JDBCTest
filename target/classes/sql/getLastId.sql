@@ -1,0 +1,1 @@
+SELECT EmployeeID FROM Sequence_Of_Employee_ID;
