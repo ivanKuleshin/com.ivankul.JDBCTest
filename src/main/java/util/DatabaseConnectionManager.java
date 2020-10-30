@@ -1,5 +1,6 @@
 package util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,10 +19,11 @@ public class DatabaseConnectionManager {
         FileInputStream fileInputStream;
         Properties properties = new Properties();
         try {
-            fileInputStream = new FileInputStream(PATH_TO_PROPERTIES);
-            properties.load(fileInputStream);
-            propStr = properties.get(propName).toString();
-            if(propStr.isEmpty()){
+            if (new File(PATH_TO_PROPERTIES).isFile()) {
+                fileInputStream = new FileInputStream(PATH_TO_PROPERTIES);
+                properties.load(fileInputStream);
+                propStr = properties.get(propName).toString();
+            } else {
                 propStr = getSysProperty(propName);
             }
         } catch (IOException e) {
@@ -30,7 +32,7 @@ public class DatabaseConnectionManager {
         return propStr == null ? "" : propStr;
     }
 
-    private static String getSysProperty(String propName){
+    private static String getSysProperty(String propName) {
         return System.getProperty(propName);
     }
 
