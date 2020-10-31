@@ -34,20 +34,20 @@ public class EmployeeDAO implements DAO<Employee> {
         return stringFromFile;
     }
 
-    public String getLastEmployeeId() {
-        String lastId = null;
+    public long getLastEmployeeId() {
+        int lastId = -1;
         try {
             createView();
             Statement statement = this.connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GET_LAST_ID);
             while (resultSet.next()) {
-                lastId = resultSet.getString(1);
+                lastId = resultSet.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        return lastId;
+        return Math.max(lastId, 0);
     }
 
     private void createView() {
@@ -78,7 +78,11 @@ public class EmployeeDAO implements DAO<Employee> {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        return employee.getLastName() == null ? null : employee;
+
+        if(employee.isEmpty()){
+            throw new RuntimeException(String.format("Employee with %s ID was NOT found", id));
+        }
+        return employee;
     }
 
     @Override
@@ -194,11 +198,11 @@ public class EmployeeDAO implements DAO<Employee> {
             statement.setDate(5, dto.getBirthDay());
             statement.setString(6, dto.getCity());
             statement.execute();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        long id = Long.parseLong(getLastEmployeeId());
+        long id = getLastEmployeeId();
         return findById(id);
     }
 
@@ -212,5 +216,22 @@ public class EmployeeDAO implements DAO<Employee> {
             throw new RuntimeException(e);
         }
         return findById(id);
+    }
+
+    public String getRandomEmployeeName() {
+        String employeeName = null;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultset = statement.executeQuery("SELECT * FROM employees ORDER BY RAND() LIMIT 1");
+            while (resultset.next()) {
+                employeeName = resultset.getString("FirstName") + " " + resultset.getString("LastName");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (null == employeeName) {
+            throw new RuntimeException();
+        }
+        return employeeName;
     }
 }

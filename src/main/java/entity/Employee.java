@@ -22,23 +22,6 @@ public class Employee {
         this.birthDay = birthDay;
     }
 
-    public String getRandomEmployeeName(Connection connection) {
-        String employeeName = null;
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultset = statement.executeQuery("SELECT * FROM employees ORDER BY RAND() LIMIT 1");
-            while (resultset.next()) {
-                employeeName = resultset.getString("FirstName") + " " + resultset.getString("LastName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (null == employeeName) {
-            throw new RuntimeException();
-        }
-        return employeeName;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -97,5 +80,9 @@ public class Employee {
                 ", city='" + city + '\'' +
                 ", birthDay=" + birthDay +
                 '}';
+    }
+
+    public boolean isEmpty(){
+        return employeeId == 0;
     }
 }
