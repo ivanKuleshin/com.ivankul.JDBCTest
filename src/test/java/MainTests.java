@@ -2,6 +2,7 @@ import dao.EmployeeDAO;
 import entity.Employee;
 import org.junit.*;
 import util.DatabaseConnectionManager;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.Connection;
@@ -13,6 +14,10 @@ public class MainTests {
     static private Connection connection;
     static private DatabaseConnectionManager connectionManager;
     static private EmployeeDAO employeeDAO;
+    static private String IVAN = "Ivan";
+    static private String NIKITA = "Nikita";
+    static private String KUL = "Kuleshin";
+    static private String SOB = "Sobol";
 
     @BeforeClass
     public static void setUp() {
@@ -22,52 +27,52 @@ public class MainTests {
     }
 
     @Test
-    public void readFromDb(){
+    public void readFromDb() {
         System.out.println("The name of the random employee is: " + employeeDAO.getRandomEmployeeName());
         assertThat(employeeDAO.getRandomEmployeeName() != null).isTrue();
     }
 
     @Test
-    public void createNewEmployeeInDb(){
+    public void createNewEmployeeInDb() {
         Employee employee = getEmployee();
         employee = employeeDAO.create(employee);
         System.out.println(employee.toString());
 
         assertThat(employee.getId()).isEqualTo(employeeDAO.getLastEmployeeId());
-        assertThat(employee.getFirstName()).isEqualTo("Nikita");
-        assertThat(employee.getLastName()).isEqualTo("Sobol");
+        assertThat(employee.getFirstName()).isEqualTo(NIKITA);
+        assertThat(employee.getLastName()).isEqualTo(SOB);
     }
 
     @Test
-    public void updateEmployeeNameInDb(){
+    public void updateEmployeeNameInDb() {
         Employee employee = getEmployeeFromDb();
-        employee.setFirstName("Ivan");
-        employee.setLastName("Kuleshin");
+        employee.setFirstName(IVAN);
+        employee.setLastName(KUL);
 
         employee = employeeDAO.update(employee);
 
-        assertThat(employee.getFirstName()).isEqualTo("Ivan");
-        assertThat(employee.getLastName()).isEqualTo("Kuleshin");
+        assertThat(employee.getFirstName()).isEqualTo(IVAN);
+        assertThat(employee.getLastName()).isEqualTo(KUL);
     }
 
     @Test
-    public void findById(){
+    public void findById() {
         Employee employee = getEmployeeFromDb();
         assertThat(employee.getId()).isEqualTo(employeeDAO.findById(employee.getId()).getId());
     }
 
     @AfterClass
-    public static void tearDown(){
+    public static void tearDown() {
         connectionManager.closeConnection(connection);
     }
 
-    private Employee getEmployeeFromDb(){
+    private Employee getEmployeeFromDb() {
         List<Employee> employeeList = employeeDAO.findAll();
         return employeeList.get(new Random().nextInt(employeeList.size()));
     }
 
-    private Employee getEmployee(){
-        return new Employee(employeeDAO.getLastEmployeeId() + 1, "Nikita", "Sobol",
+    private Employee getEmployee() {
+        return new Employee(employeeDAO.getLastEmployeeId() + 1, NIKITA, SOB,
                 "QA Engineer", "Kyiv", Date.valueOf("1999-10-09"));
     }
 }
