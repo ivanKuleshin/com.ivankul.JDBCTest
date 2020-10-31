@@ -1,8 +1,6 @@
 import dao.EmployeeDAO;
 import entity.Employee;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import util.DatabaseConnectionManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,11 +8,11 @@ import java.sql.Connection;
 import java.sql.Date;
 
 public class MainTests {
-    private Connection connection;
-    private DatabaseConnectionManager connectionManager;
+    static private Connection connection;
+    static private DatabaseConnectionManager connectionManager;
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         connectionManager = new DatabaseConnectionManager();
         connection = connectionManager.createConnection();
     }
@@ -45,8 +43,8 @@ public class MainTests {
         assertThat(true).isTrue();
     }
 
-    @After
-    public void tearDown(){
+    @AfterClass
+    public static void tearDown(){
         connectionManager.closeConnection(connection);
     }
 }
