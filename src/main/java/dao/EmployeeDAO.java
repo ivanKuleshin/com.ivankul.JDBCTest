@@ -15,6 +15,7 @@ public class EmployeeDAO implements DAO<Employee> {
     private static final String GET_ONE = getStringFromFile("sql/getFromEmployeeById.sql");
     private static final String UPDATE = getStringFromFile("sql/updateEmployee.sql");
     private static final String DELETE = getStringFromFile("sql/deleteFromEmployee.sql");
+    private static final String UNNECESSARY_EMPLOYEE = getStringFromFile("sql/getUnnecessaryEmployee.sql");
 
     public EmployeeDAO(Connection connection) {
         this.connection = connection;
@@ -229,5 +230,23 @@ public class EmployeeDAO implements DAO<Employee> {
             throw new RuntimeException();
         }
         return employeeName;
+    }
+
+    public Employee getUnnecessaryEmployee(){
+        Employee employee = new Employee();
+        try(PreparedStatement statement = this.connection.prepareStatement(UNNECESSARY_EMPLOYEE)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                employee.setId(resultSet.getLong("EmployeeID"));
+                employee.setLastName(resultSet.getString("LastName"));
+                employee.setFirstName(resultSet.getString("FirstName"));
+                employee.setTitle(resultSet.getString("Title"));
+                employee.setBirthDay(resultSet.getDate("BirthDate"));
+                employee.setCity(resultSet.getString("City"));
+            }
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return employee;
     }
 }

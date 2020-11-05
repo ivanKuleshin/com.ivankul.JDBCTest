@@ -64,7 +64,7 @@ public class MainTests {
 
     @Test
     public void deleteTheEmployee() {
-        long employeeId = getEmployeeFromDb().getId();
+        long employeeId = getUnnecessaryEmployee().getId();
         employeeDAO.delete(employeeId);
         assertThat(employeeDAO.findById(employeeId).isEmpty()).isTrue();
     }
@@ -82,5 +82,9 @@ public class MainTests {
     private Employee getEmployee() {
         return new Employee(employeeDAO.getLastEmployeeId() + 1, NIKITA, SOB,
                 "QA Engineer", "Kyiv", Date.valueOf("1999-10-09"));
+    }
+
+    private Employee getUnnecessaryEmployee(){
+        return employeeDAO.getUnnecessaryEmployee();
     }
 }
