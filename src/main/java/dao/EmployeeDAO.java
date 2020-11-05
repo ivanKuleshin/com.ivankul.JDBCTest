@@ -124,11 +124,7 @@ public class EmployeeDAO implements DAO<Employee> {
         return listOfAllRecords;
     }
 
-    public Map<String, String> getFirstSelectedRecord(String fileName) {
-        return getTableRecordByIndex(fileName, 0);
-    }
-
-    private Map<String, String> getTableRecordByIndex(String fileName, int index) {
+    public Map<String, String> getTableRecordByIndex(String fileName, int index) {
         List<Map<String, String>> queryResults = getAllRecordsAsList(fileName);
         if (queryResults.size() > index) {
             return queryResults.get(index);

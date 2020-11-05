@@ -5,6 +5,7 @@ import entity.Employee;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.Map;
+import java.util.Random;
 
 class JDBCExecutorMain {
     public static void main(String... args) {
@@ -53,7 +54,8 @@ class JDBCExecutorMain {
 
 //     Print random table line as String
         System.out.println("Random table line:");
-        Map<String, String> firstSelectedRecord = employeeDAO.getFirstSelectedRecord("sql/selectAllRecordsFromEmployee.sql");
+        Map<String, String> firstSelectedRecord = employeeDAO.getTableRecordByIndex("sql/selectAllRecordsFromEmployee.sql",
+                new Random().nextInt(employeeDAO.findAll().size()));
         System.out.println(firstSelectedRecord);
 
 //      Close connection
