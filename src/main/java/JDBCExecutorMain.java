@@ -40,7 +40,7 @@ class JDBCExecutorMain {
         System.out.println("New info: " + employee.getFirstName() + " " + employee.getLastName() + " " + employee.getId());
 
 //      Delete employee from the DB
-        if (employeeDAO.delete(employee.getId()) == null) {
+        if (employeeDAO.delete(employee.getId()).getId() == 0) {
             System.out.println("Employee was deleted successfully!");
         } else {
             System.err.print("ERROR! The employee was NOT deleted!");
