@@ -78,10 +78,6 @@ public class EmployeeDAO implements DAO<Employee> {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-        if(employee.isEmpty()){
-            throw new RuntimeException(String.format("Employee with %s ID was NOT found", id));
-        }
         return employee;
     }
 

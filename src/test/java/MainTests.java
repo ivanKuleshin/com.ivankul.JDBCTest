@@ -14,10 +14,10 @@ public class MainTests {
     static private Connection connection;
     static private DatabaseConnectionManager connectionManager;
     static private EmployeeDAO employeeDAO;
-    static private String IVAN = "Ivan";
-    static private String NIKITA = "Nikita";
-    static private String KUL = "Kuleshin";
-    static private String SOB = "Sobol";
+    static private final String IVAN = "Ivan";
+    static private final String NIKITA = "Nikita";
+    static private final String KUL = "Kuleshin";
+    static private final String SOB = "Sobol";
 
     @BeforeClass
     public static void setUp() {
@@ -57,8 +57,16 @@ public class MainTests {
 
     @Test
     public void findById() {
-        Employee employee = getEmployeeFromDb();
-        assertThat(employee.getId()).isEqualTo(employeeDAO.findById(employee.getId()).getId());
+        Employee employee = employeeDAO.findById(getEmployeeFromDb().getId());
+        assertThat(employee.isEmpty()).isFalse();
+        assertThat(employee.getId()).isEqualTo(employee.getId());
+    }
+
+    @Test
+    public void deleteTheEmployee() {
+        long employeeId = getEmployeeFromDb().getId();
+        employeeDAO.delete(employeeId);
+        assertThat(employeeDAO.findById(employeeId).isEmpty()).isTrue();
     }
 
     @AfterClass
