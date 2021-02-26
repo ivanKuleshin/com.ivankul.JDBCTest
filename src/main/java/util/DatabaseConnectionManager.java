@@ -36,7 +36,7 @@ public class DatabaseConnectionManager {
         return System.getProperty(propName);
     }
 
-    public Connection createConnection() {
+    public static Connection createConnection() {
         Connection connection;
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());

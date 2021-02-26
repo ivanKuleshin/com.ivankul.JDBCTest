@@ -24,7 +24,7 @@ public final class DbQuery {
 
     public static int update(final String updateQuery, final Object... parameters) {
         int resultCode;
-        try (final PreparedStatement updateStatement = DbManager.getDbConnection().prepareStatement(updateQuery)) {
+        try (final PreparedStatement updateStatement = DatabaseConnectionManager.createConnection().prepareStatement(updateQuery)) {
             if (updateStatement.toString().contains("?")) {
                 fillPreparedStatementWithParameters(updateStatement, Arrays.asList(parameters));
             }
@@ -39,7 +39,7 @@ public final class DbQuery {
 
     public static int update(final String updateQuery) {
         int resultCode;
-        try (final PreparedStatement updateStatement = DbManager.getDbConnection().prepareStatement(updateQuery)) {
+        try (final PreparedStatement updateStatement = DatabaseConnectionManager.createConnection().prepareStatement(updateQuery)) {
 //            LOG.info("Query: \n{}", updateQuery);
             resultCode = updateStatement.executeUpdate();
 //            LOG.info("DB manipulation. Affected rows: {}", resultCode);
@@ -56,7 +56,7 @@ public final class DbQuery {
 
     public static List<Map<String, String>> select(String selectQuery, final Object... parameters) {
         List<Map<String, String>> finalListOfMaps;
-        Connection dbConnection = DbManager.getDbConnection();
+        Connection dbConnection = DatabaseConnectionManager.createConnection();
         selectQuery = selectQuery.trim();
         try {
             dbConnection.setAutoCommit(false);
