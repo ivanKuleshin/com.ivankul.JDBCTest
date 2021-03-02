@@ -22,7 +22,7 @@ public class MainTests {
     @BeforeClass
     public static void setUp() {
         connectionManager = new DatabaseConnectionManager();
-        connection = connectionManager.createConnection();
+        connection = DatabaseConnectionManager.createConnection();
         employeeDAO = new EmployeeDAO(connection);
     }
 
